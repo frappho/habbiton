@@ -27,21 +27,14 @@ class DatabaseHelper {
     );
   }
 
-/*  Future<void> initializeDatabase() async {
-    final screens = await fetchScreens();
-    if (screens.isEmpty) {
-      await insertScreen('Habbit 1');
-      for (int i = 0; i < 365; i++) {
-        await insertBox(1, i, 0); // Screen ID 1
-      }
-    }
-  }*/
-
   Future _createDB(Database db, int version) async {
     await db.execute('''
       CREATE TABLE screens (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT
+        title TEXT,
+        days INTEGER,
+        type INTEGER,
+        year TEXT
       )
     ''');
 
@@ -55,9 +48,9 @@ class DatabaseHelper {
     ''');
   }
 
-  Future<int> insertScreen(String title) async {
+  Future<int> insertScreen(String title, int days, int type, String year) async {
     final db = await instance.database;
-    return await db.insert('screens', {'title': title});
+    return await db.insert('screens', {'title': title, "days": days, "type": type, "year": year});
   }
 
   Future<int> updateScreen(int screenId, String title) async {
@@ -70,13 +63,19 @@ class DatabaseHelper {
     );
   }
 
-  Future<int> insertBox(int screenId, int boxIndex, int hours) async {
+  Future<void> insertBox(int screenId, int gridIndex, int hours) async {
     final db = await instance.database;
-    return await db.insert(
+    await db.insert(
       'boxes',
-      {'screen_id': screenId, 'box_index': boxIndex, 'hours': hours},
+      {
+        'screen_id': screenId,
+        'box_index': gridIndex,
+        'hours': hours,
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
 
   Future<void> updateBox(int screenId, int boxIndex, int hours) async {
     final db = await instance.database;
@@ -90,7 +89,6 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> fetchScreens() async {
     final db = await instance.database;
-
     return await db.query('screens');
   }
 

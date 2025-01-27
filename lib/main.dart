@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_tracker/screens/main_screen.dart';
+import 'package:Habbiton/screens/main_screen.dart';
 
 void main() {
   runApp(HabitTrackerApp());

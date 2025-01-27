@@ -1,15 +1,15 @@
-# Ignoriere alles standardmäßig
+# Ignore everything
 *
 
-# Ausnahme für den lib-Ordner
+# lib-exception
 !lib/
 !lib/**
 
-# Behalte notwendige Git-Dateien
+# Git-exception
 !.gitignore
 !.gitattributes
 
-# Behalte relevante Flutter-Konfigurationsdateien
+# relevant Flutter-exception
 !pubspec.yaml
 !pubspec.lock
 !README.md

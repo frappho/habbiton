@@ -13,6 +13,7 @@ Map<String, Map<String, dynamic>> yearMap = {
     "November": 30,
     "Dezember": 31,
     "days": 365,
+    "start": 3
   },
   "2026": {
     "Januar": 31,
@@ -28,6 +29,7 @@ Map<String, Map<String, dynamic>> yearMap = {
     "November": 30,
     "Dezember": 31,
     "days": 365,
+    "start": 4
   },
   "2027": {
     "Januar": 31,
@@ -43,6 +45,7 @@ Map<String, Map<String, dynamic>> yearMap = {
     "November": 30,
     "Dezember": 31,
     "days": 365,
+    "start": 5
   },
   "2028": {
     "Januar": 31,
@@ -51,13 +54,14 @@ Map<String, Map<String, dynamic>> yearMap = {
     "April": 30,
     "Mai": 31,
     "Juni": 30,
-    "July": 31,
+    "Juli": 31,
     "August": 31,
     "September": 30,
     "Oktober": 31,
     "November": 30,
     "Dezember": 31,
     "days": 366,
+    "start": 6
   },
   "2029": {
     "Januar": 31,
@@ -73,6 +77,7 @@ Map<String, Map<String, dynamic>> yearMap = {
     "November": 30,
     "Dezember": 31,
     "days": 365,
+    "start": 1
   },
   "2030": {
     "Januar": 31,
@@ -88,6 +93,7 @@ Map<String, Map<String, dynamic>> yearMap = {
     "November": 30,
     "Dezember": 31,
     "days": 365,
+    "start": 2
   },
   "2031": {
     "Januar": 31,
@@ -103,6 +109,7 @@ Map<String, Map<String, dynamic>> yearMap = {
     "November": 30,
     "Dezember": 31,
     "days": 365,
+    "start": 3
   },
   "2032": {
     "Januar": 31,
@@ -118,6 +125,7 @@ Map<String, Map<String, dynamic>> yearMap = {
     "November": 30,
     "Dezember": 31,
     "days": 366,
+    "start": 4
   },
   "2033": {
     "Januar": 31,
@@ -133,6 +141,7 @@ Map<String, Map<String, dynamic>> yearMap = {
     "November": 30,
     "Dezember": 31,
     "days": 365,
+    "start": 6
   },
   "2034": {
     "Januar": 31,
@@ -148,6 +157,7 @@ Map<String, Map<String, dynamic>> yearMap = {
     "November": 30,
     "Dezember": 31,
     "days": 365,
+    "start": 7
   },
   "2035": {
     "Januar": 31,
@@ -163,5 +173,6 @@ Map<String, Map<String, dynamic>> yearMap = {
     "November": 30,
     "Dezember": 31,
     "days": 365,
-  },
+    "start": 1
+  }
 };

@@ -105,7 +105,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
               int type = hoursCheck ? 0 : 1;
 
               final screenId = await DatabaseHelper.instance.insertScreen(
-                'Habbit ${titles.length + 1} - ${selectedValue}',
+                'Habbit ${titles.length + 1}',
                 days,
                 type,
                 selectedValue!,
@@ -115,7 +115,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
                 if (titles.length == 0) {
                   _currentIndex = 0;
                 };
-                titles.add('Habbit ${titles.length + 1} - ${selectedValue}');
+                titles.add('Habbit ${titles.length + 1}');
                 screenIds.add(screenId);
                 screenType.add(type);
                 yearsList.add(selectedValue!);
@@ -397,11 +397,37 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
                                   onLongPress: () => _showDeletePopup(titles[index], index),
                                   onTap: () => _updateTitle(index),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
+                                    padding: const EdgeInsets.fromLTRB(16.0,16.0,16.0,0.0),
                                     child: Text(
                                       titles[index],
                                       style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                                     ),
+                                  ),
+                                ),
+                                Text(
+                                  yearsList[index],
+                                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                  child: SizedBox(
+                                    child: GridView.builder(
+                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 14,
+                                        crossAxisSpacing: 4,
+                                        mainAxisSpacing: 0,
+                                      ), itemCount: 14
+                                      , itemBuilder: (context, index) {
+                                      List<String> weekDays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So","Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+                                      return Container(
+                                        alignment: Alignment.center,
+                                        color: Colors.transparent,
+                                        child: Text(
+                                          weekDays[index],
+                                          style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                                        ),
+                                      );
+                                    },),height: 30,
                                   ),
                                 ),
                                 Expanded(
@@ -433,7 +459,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
                                               shrinkWrap: true,
                                               physics: const NeverScrollableScrollPhysics(),
                                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 12,
+                                                crossAxisCount: 14,
                                                 crossAxisSpacing: 4,
                                                 mainAxisSpacing: 4,
                                               ),

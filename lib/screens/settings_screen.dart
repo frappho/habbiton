@@ -85,7 +85,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       try {
         await _notificationsPlugin.zonedSchedule(
           dayIndex,
-          'Erinnerung',
+          'Habbiton',
           'Schön fleißig gewesen? 😊',
           scheduledTime,
           const NotificationDetails(

@@ -325,6 +325,17 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
     return (start + accumulatedDays) % 7;
   }
 
+  int calculateGlobalIndex(String year, int monthIndex, int day) {
+    int globalIndex = day - 1; // Start mit dem aktuellen Tag
+    for (int i = 0; i < monthIndex; i++) {
+      String prevMonth = yearMap[year]?.keys.elementAt(i) ?? "";
+      int prevDays = yearMap[year]?[prevMonth] ?? 0;
+      globalIndex += prevDays; // Addiere alle vorherigen Monatstage
+    }
+    return globalIndex;
+  }
+
+
 
   @override
   void initState() {
@@ -454,6 +465,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
                                         final String month = yearMap[year]?.keys.elementAt(monthIndex) ?? "";
                                         final int daysInMonth = yearMap[year]?[month] ?? 0;
 
+
                                         int startIndex = calculateStartIndex(year, monthIndex);
 
                                         return Column(
@@ -479,8 +491,9 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
                                                 if (dayIndex < startIndex) {
                                                   return Container(color: Colors.transparent);
                                                 }
-
-                                                int globalIndex = dayIndex - startIndex;
+                                                
+                                                int dayNumber = dayIndex - startIndex +1;
+                                                int globalIndex = calculateGlobalIndex(year, monthIndex, dayNumber);
                                                 int value = gridData[index][globalIndex];
                                                 Color boxColor = value == 0 ? Colors.grey[300]! : Color.lerp(Colors.green[100], Colors.green[900], value / 10)!;
 
@@ -507,7 +520,6 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
                                     ),
                                   ),
                                 ),
-
                               ],
                             );
                           },

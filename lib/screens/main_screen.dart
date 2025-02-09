@@ -312,6 +312,20 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
     );
   }
 
+  int calculateStartIndex(String year, int monthIndex) {
+    int start = yearMap[year]?["start"]-1 ?? 1;
+    int accumulatedDays = 0;
+
+    for (int i = 0; i < monthIndex; i++) {
+      String prevMonth = yearMap[year]?.keys.elementAt(i) ?? "";
+      int prevDays = yearMap[year]?[prevMonth] ?? 0;
+      accumulatedDays += prevDays;
+    }
+
+    return (start + accumulatedDays) % 7;
+  }
+
+
   @override
   void initState() {
     super.initState();
@@ -440,10 +454,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
                                         final String month = yearMap[year]?.keys.elementAt(monthIndex) ?? "";
                                         final int daysInMonth = yearMap[year]?[month] ?? 0;
 
-                                        int startIndex = 0;
-                                        if (monthIndex > 0) {
-                                          startIndex = yearMap[year]?.values.take(monthIndex).cast<int>().fold(0, (sum, days) => sum! + days) ?? 0;
-                                        }
+                                        int startIndex = calculateStartIndex(year, monthIndex);
 
                                         return Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -463,35 +474,40 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
                                                 crossAxisSpacing: 4,
                                                 mainAxisSpacing: 4,
                                               ),
-                                              itemCount: daysInMonth,
+                                              itemCount: daysInMonth + startIndex,
                                               itemBuilder: (context, dayIndex) {
-                                                int globalIndex = startIndex + dayIndex;
+                                                if (dayIndex < startIndex) {
+                                                  return Container(color: Colors.transparent);
+                                                }
+
+                                                int globalIndex = dayIndex - startIndex;
                                                 int value = gridData[index][globalIndex];
                                                 Color boxColor = value == 0 ? Colors.grey[300]! : Color.lerp(Colors.green[100], Colors.green[900], value / 10)!;
 
                                                 return GestureDetector(
                                                   onTap: () => screenType[index] == 0
-                                                      ? _updateBox(index, globalIndex, dayIndex, month)
+                                                      ? _updateBox(index, globalIndex, dayIndex - startIndex, month)
                                                       : value == 10
-                                                          ? _updateGrid(index, globalIndex, 0)
-                                                          : _updateGrid(index, globalIndex, 10),
+                                                      ? _updateGrid(index, globalIndex, 0)
+                                                      : _updateGrid(index, globalIndex, 10),
                                                   child: Container(
                                                     alignment: Alignment.center,
                                                     color: boxColor,
                                                     child: Text(
-                                                      "${dayIndex + 1}",
+                                                      "${dayIndex - startIndex + 1}",
                                                       style: const TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
                                                     ),
                                                   ),
                                                 );
                                               },
-                                            )
+                                            ),
                                           ],
                                         );
                                       },
                                     ),
                                   ),
                                 ),
+
                               ],
                             );
                           },

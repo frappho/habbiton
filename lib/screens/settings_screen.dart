@@ -103,7 +103,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
 
       } catch (e) {
-        //print("Fehler beim Planen der Benachrichtigung: $e");
       }
     }
   }

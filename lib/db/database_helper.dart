@@ -102,7 +102,6 @@ class DatabaseHelper {
   }
 
   Future<void> deleteScreen(int screenId) async {
-    ///TODO: ON DELETE CASCADE better?
     final db = await instance.database;
     await db.delete(
       'screens',
@@ -116,8 +115,4 @@ class DatabaseHelper {
     );
   }
 
-/*  Future close() async {
-    final db = await instance.database;
-    db.close();
-  }*/
 }
